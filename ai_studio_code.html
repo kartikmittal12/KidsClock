@@ -221,7 +221,7 @@
                     <label class="block text-xs font-bold text-amber-800 mb-0.5 text-center">Minutes</label>
                     <div class="flex justify-center items-center space-x-3">
                         <button type="button" onclick="adjustVal('minutes', -1)" class="bg-amber-200 hover:bg-amber-300 font-extrabold text-amber-900 px-2.5 py-0.5 rounded border border-amber-400 active:scale-95 text-sm">-</button>
-                        <input id="set-minutes" type="number" min="0" max="59" value="30" oninput="validateInput(this, 0, 59)" onblur="padInput(this)" class="font-extrabold text-xl text-amber-950 w-12 text-center bg-white border border-amber-400 rounded focus:outline-none focus:ring-2 focus:ring-amber-500" />
+                        <input id="set-minutes" type="number" min="0" max="59" value="00" oninput="validateInput(this, 0, 59)" onblur="padInput(this)" class="font-extrabold text-xl text-amber-950 w-12 text-center bg-white border border-amber-400 rounded focus:outline-none focus:ring-2 focus:ring-amber-500" />
                         <button type="button" onclick="adjustVal('minutes', 1)" class="bg-amber-200 hover:bg-amber-300 font-extrabold text-amber-900 px-2.5 py-0.5 rounded border border-amber-400 active:scale-95 text-sm">+</button>
                     </div>
                 </div>
@@ -313,7 +313,7 @@
     <script>
         // Configure Timer Default Values
         let configHours = 0;
-        let configMinutes = 30;
+        let configMinutes = 0;
         let configSeconds = 0;
 
         // Running Timer Values
