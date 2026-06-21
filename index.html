@@ -182,8 +182,8 @@
             </div>
 
             <!-- Digital Display -->
-            <div class="wood-board px-8 py-3 text-center min-w-[280px]">
-                <div id="digital-clock" class="wood-text text-4xl sm:text-5xl font-extrabold tracking-widest font-mono">
+            <div class="wood-board px-4 py-2 sm:px-8 sm:py-3 text-center w-full max-w-[280px]">
+                <div id="digital-clock" class="wood-text text-2xl sm:text-4xl font-extrabold tracking-wider font-mono whitespace-nowrap">
                     10 : 20 : 00 PM
                 </div>
             </div>
@@ -310,6 +310,33 @@
 
     <!-- Clock Controller Logic -->
     <script>
+        // Screen Wake Lock API integration to keep screen active
+        let wakeLock = null;
+
+        async function requestWakeLock() {
+            try {
+                if ('wakeLock' in navigator) {
+                    wakeLock = await navigator.wakeLock.request('screen');
+                    console.log('Screen Wake Lock acquired successfully');
+                    wakeLock.addEventListener('release', () => {
+                        console.log('Screen Wake Lock released');
+                    });
+                }
+            } catch (err) {
+                console.warn(`Screen Wake Lock error: ${err.name}, ${err.message}`);
+            }
+        }
+
+        window.addEventListener('load', () => {
+            requestWakeLock();
+        });
+
+        document.addEventListener('visibilitychange', async () => {
+            if (wakeLock !== null && document.visibilityState === 'visible') {
+                requestWakeLock();
+            }
+        });
+
         // Configure Timer Default Values
         let configHours = 0;
         let configMinutes = 0;
