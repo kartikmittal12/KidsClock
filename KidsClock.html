@@ -12,7 +12,6 @@
         body {
             font-family: 'Fredoka', sans-serif;
             background-color: #d1fae5;
-            overflow: hidden;
         }
         /* Custom styled wood panels */
         .wood-board {
@@ -47,7 +46,7 @@
         }
     </style>
 </head>
-<body class="h-screen w-screen flex flex-col justify-between p-3 md:p-6 select-none relative bg-gradient-to-b from-emerald-100 via-green-100 to-emerald-200">
+<body class="min-h-screen w-screen flex flex-col justify-between p-3 md:p-6 select-none relative bg-gradient-to-b from-emerald-100 via-green-100 to-emerald-200 xl:h-screen xl:overflow-hidden">
 
     <!-- Hanging Vines Left Background Decoration -->
     <svg class="absolute top-0 left-0 w-24 h-48 pointer-events-none opacity-80" viewBox="0 0 100 200">
@@ -113,10 +112,10 @@
     </header>
 
     <!-- Main Workspace Grid -->
-    <main class="flex-1 w-full grid grid-cols-1 lg:grid-cols-12 gap-4 items-center justify-center max-h-[80vh] min-h-[50vh] z-10">
+    <main class="flex-1 w-full grid grid-cols-1 sm:grid-cols-12 gap-4 items-center justify-center xl:max-h-[80vh] xl:min-h-[50vh] z-10">
         
         <!-- Left Column: Cute Wood Sign Board -->
-        <div class="hidden lg:flex lg:col-span-3 flex-col items-center justify-center relative">
+        <div class="hidden xl:flex xl:col-span-3 flex-col items-center justify-center relative">
             <!-- Animated Monkey SVG -->
             <svg class="w-32 h-32 mb-4 animate-bounce" style="animation-duration: 3s;" viewBox="0 0 100 100">
                 <path d="M50,10 L50,40" stroke="#713f12" stroke-width="4"/>
@@ -136,7 +135,7 @@
         </div>
 
         <!-- Center Column: Clock, Digital Clock & Next Hour Countdown -->
-        <div class="lg:col-span-6 flex flex-col items-center justify-center space-y-4">
+        <div class="col-span-1 sm:col-span-6 md:col-span-7 xl:col-span-6 flex flex-col items-center justify-center space-y-4">
             
             <!-- SVG Analog Clock Face -->
             <div class="relative bg-white/40 p-3 rounded-full border-4 border-emerald-200/50 shadow-md">
@@ -197,7 +196,7 @@
         </div>
 
         <!-- Right Column: Settings Card / Active Countdown Status -->
-        <div class="lg:col-span-3 flex flex-col justify-center items-center w-full max-w-[340px] mx-auto space-y-4">
+        <div class="col-span-1 sm:col-span-6 md:col-span-5 xl:col-span-3 flex flex-col justify-center items-center w-full max-w-[340px] mx-auto space-y-4">
             
             <!-- Set Timer Options Panel -->
             <div id="set-timer-card" class="bg-amber-50 border-4 border-amber-600 rounded-2xl shadow-xl p-4 w-full transition-all duration-300 transform scale-100">
@@ -556,6 +555,11 @@
         function toggleSetTimerPanel() {
             const card = document.getElementById('set-timer-card');
             card.classList.toggle('hidden');
+            if (!card.classList.contains('hidden')) {
+                setTimeout(() => {
+                    card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 50);
+            }
         }
 
         // Voice test helper
@@ -675,7 +679,11 @@
             isTimerPaused = false;
 
             document.getElementById('set-timer-card').classList.add('hidden');
-            document.getElementById('active-timer-card').classList.remove('hidden');
+            const activeCard = document.getElementById('active-timer-card');
+            activeCard.classList.remove('hidden');
+            setTimeout(() => {
+                activeCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 50);
 
             // Reset pause button visual state
             const pauseBtn = document.getElementById('pause-timer-btn');
@@ -733,7 +741,11 @@
             timerLastSecondsRemaining = null;
             isTimerPaused = false;
             document.getElementById('active-timer-card').classList.add('hidden');
-            document.getElementById('set-timer-card').classList.remove('hidden');
+            const setCard = document.getElementById('set-timer-card');
+            setCard.classList.remove('hidden');
+            setTimeout(() => {
+                setCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 50);
             drawTimerSector(0);
         }
 
